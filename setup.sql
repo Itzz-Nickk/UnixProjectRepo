@@ -1,15 +1,21 @@
-CREATE DATABASE tournamentDB;
+CREATE DATABASE IF NOT EXISTS tournamentDB;
 
 USE tournamentDB;
 
-CREATE TABLE TOURNAMENTS (
-    tournamentID INT PRIMARY KEY,
-    tournamentName VARCHAR(100)
+/* TOURNAMENTS TABLE */
+CREATE TABLE IF NOT EXISTS TOURNAMENTS (
+    tournamentID INT AUTO_INCREMENT PRIMARY KEY,
+    tournamentName VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE COMPETITORS (
-    competitorID INT PRIMARY KEY,
-    competitorFirstName VARCHAR(100),
-    competitorLastName VARCHAR(100),
-    tournamentID INT
+/* COMPETITORS TABLE */
+CREATE TABLE IF NOT EXISTS COMPETITORS (
+    competitorID INT AUTO_INCREMENT PRIMARY KEY,
+    competitorFirstName VARCHAR(100) NOT NULL,
+    competitorLastName VARCHAR(100) NOT NULL,
+    tournamentID INT,
+
+    FOREIGN KEY (tournamentID)
+    REFERENCES TOURNAMENTS(tournamentID)
+    ON DELETE CASCADE
 );

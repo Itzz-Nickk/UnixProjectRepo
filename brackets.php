@@ -4,6 +4,7 @@ include 'db_connect.php';
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Tournament Brackets</title>
     <link rel="stylesheet" href="style.css">
@@ -11,17 +12,22 @@ include 'db_connect.php';
 
 <body>
 
+<!-- header -->
 <div class="top-bar">
     <h1>Tournament Viewer</h1>
-    <img src="http://localhost:8081/logo.png">
+
+    <!-- logo from CDN container -->
+    <img src="http://cdn-container/logo.png">
 </div>
 
+<!-- TOURNAMENTS SECTION -->
 <h2>
-    <img src="http://localhost:8081/tournament.png">
+    <img src="http://cdn-container/tournament.png">
     Tournaments
 </h2>
 
 <table>
+
 <tr>
     <th>ID</th>
     <th>Name</th>
@@ -29,17 +35,19 @@ include 'db_connect.php';
 
 <?php
 
-$sql = "SELECT * FROM TOURNAMENTS";
-$result = $conn->query($sql);
+// get tournaments
+$result = $conn->query("SELECT * FROM TOURNAMENTS");
 
+// check query
 if (!$result) {
     die("Query failed: " . $conn->error);
 }
 
+// display tournaments
 while ($row = $result->fetch_assoc()) {
     echo "<tr>";
-    echo "<td>".$row['tournamentID']."</td>";
-    echo "<td>".$row['tournamentName']."</td>";
+    echo "<td>{$row['tournamentID']}</td>";
+    echo "<td>{$row['tournamentName']}</td>";
     echo "</tr>";
 }
 
@@ -47,12 +55,14 @@ while ($row = $result->fetch_assoc()) {
 
 </table>
 
+<!-- COMPETITORS SECTION -->
 <h2>
-    <img src="http://localhost:8081/player.png">
+    <img src="http://cdn-container/player.png">
     Competitors
 </h2>
 
 <table>
+
 <tr>
     <th>ID</th>
     <th>First Name</th>
@@ -62,19 +72,21 @@ while ($row = $result->fetch_assoc()) {
 
 <?php
 
-$sql = "SELECT * FROM COMPETITORS";
-$result = $conn->query($sql);
+// get competitors
+$result = $conn->query("SELECT * FROM COMPETITORS");
 
+// check query
 if (!$result) {
     die("Query failed: " . $conn->error);
 }
 
+// display competitors
 while ($row = $result->fetch_assoc()) {
     echo "<tr>";
-    echo "<td>".$row['competitorID']."</td>";
-    echo "<td>".$row['competitorFirstName']."</td>";
-    echo "<td>".$row['competitorLastName']."</td>";
-    echo "<td>".$row['tournamentID']."</td>";
+    echo "<td>{$row['competitorID']}</td>";
+    echo "<td>{$row['competitorFirstName']}</td>";
+    echo "<td>{$row['competitorLastName']}</td>";
+    echo "<td>{$row['tournamentID']}</td>";
     echo "</tr>";
 }
 
@@ -82,18 +94,28 @@ while ($row = $result->fetch_assoc()) {
 
 </table>
 
+<!-- BRACKET PREVIEW -->
 <h2>Bracket Preview</h2>
 
 <?php
 
-$result = $conn->query("SELECT * FROM COMPETITORS");
+// simple bracket display
+$result = $conn->query("SELECT competitorFirstName, competitorLastName FROM COMPETITORS");
+
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 
 while ($row = $result->fetch_assoc()) {
+
     echo "<div class='bracket-box'>";
-    echo $row['competitorFirstName']." ".$row['competitorLastName'];
+
+    echo "Competitor: {$row['competitorFirstName']} {$row['competitorLastName']}";
+
     echo "</div>";
 }
 
+// close connection
 $conn->close();
 
 ?>
