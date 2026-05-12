@@ -15,6 +15,7 @@ include 'db_connect.php';
 
 <body>
 
+    <img src="localhost:8082/imagesFolder/logo.png" alt="logo" />
 <h1>Tournament Brackets</h1>
 
 <div class="container">
@@ -31,7 +32,7 @@ $tournaments = $conn->query("SELECT * FROM TOURNAMENTS");
 while ($tournament = $tournaments->fetch_assoc()) {
 
     echo "<div class='card'>";
-
+<img src="localhost:8082/imagesFolder/tournament_small.png" alt="tournament_pic" />
     echo "<h2>" . $tournament['tournamentName'] . "</h2>";
 
     $tournamentID = $tournament['tournamentID'];
@@ -40,7 +41,7 @@ while ($tournament = $tournaments->fetch_assoc()) {
     $competitors = $conn->query(
         "SELECT * FROM COMPETITORS WHERE tournamentID = $tournamentID"
     );
-
+<img src="localhost:8082/imagesFolder/competitor_small.png" alt="competitor_pic" />
     echo "<h3>Competitors</h3>";
 
     echo "<table>";
