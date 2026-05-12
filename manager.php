@@ -70,6 +70,7 @@ if (isset($_POST['create_competitor'])) {
 <head>
 
     <!-- page title -->
+    <img src="localhost:8082/imagesFolder/logo.png" alt="logo" />
     <title>Tournament Manager</title>
 
     <!-- css file -->
@@ -103,6 +104,7 @@ if ($message != "") {
 <!-- create tournament form -->
 <div class="card">
 
+    <img src="localhost:8082/imagesFolder/tournament_small.png" alt="tournament_pic" />
     <h2>Create Tournament</h2>
 
     <form method="POST" action="manager.php">
@@ -126,6 +128,7 @@ if ($message != "") {
 <!-- create competitor form -->
 <div class="card">
 
+    <img src="localhost:8082/imagesFolder/competitor_small.png" alt="competitor_pic" />
     <h2>Create Competitor</h2>
 
     <form method="POST" action="manager.php">
