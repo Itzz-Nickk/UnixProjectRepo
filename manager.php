@@ -9,35 +9,23 @@ $message = "";
 /* create tournament */
 if (isset($_POST['create_tournament'])) {
 
-    // get form value
-    $tournamentName =
-        $_POST['tournamentName'];
+    // get tournament name from form
+    $tournamentName = $_POST['tournamentName'];
 
-    // sql query
-    $sql =
-        "INSERT INTO TOURNAMENTS
-        (tournamentName)
-        VALUES (?)";
+    // insert tournament into database
+    $sql = "INSERT INTO TOURNAMENTS (tournamentName) VALUES (?)";
 
-    // prepare query
+    // prepare statement
     $stmt = $conn->prepare($sql);
 
-    // bind parameter
-    $stmt->bind_param(
-        "s",
-        $tournamentName
-    );
+    // bind value
+    $stmt->bind_param("s", $tournamentName);
 
     // execute query
     if ($stmt->execute()) {
-
-        $message =
-            "Tournament created successfully!";
-
+        $message = "Tournament created successfully!";
     } else {
-
-        $message =
-            "Error creating tournament.";
+        $message = "Error creating tournament.";
     }
 
     // close statement
@@ -47,52 +35,33 @@ if (isset($_POST['create_tournament'])) {
 /* create competitor */
 if (isset($_POST['create_competitor'])) {
 
-    // get form values
-    $firstName =
-        $_POST['firstName'];
+    // get competitor information from form
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $tournamentID = $_POST['tournamentID'];
 
-    $lastName =
-        $_POST['lastName'];
+    // insert competitor into database
+    $sql = "INSERT INTO COMPETITORS
+            (competitorFirstName, competitorLastName, tournamentID)
+            VALUES (?, ?, ?)";
 
-    $tournamentID =
-        $_POST['tournamentID'];
-
-    // sql query
-    $sql =
-        "INSERT INTO COMPETITORS
-        (
-            competitorFirstName,
-            competitorLastName,
-            tournamentID
-        )
-        VALUES (?, ?, ?)";
-
-    // prepare query
+    // prepare statement
     $stmt = $conn->prepare($sql);
 
-    // bind parameters
-    $stmt->bind_param(
-        "ssi",
-        $firstName,
-        $lastName,
-        $tournamentID
-    );
+    // bind values
+    $stmt->bind_param("ssi", $firstName, $lastName, $tournamentID);
 
     // execute query
     if ($stmt->execute()) {
-
-        $message =
-            "Competitor created successfully!";
-
+        $message = "Competitor created successfully!";
     } else {
-
-        $message =
-            "Error creating competitor.";
+        $message = "Error creating competitor.";
     }
 
     // close statement
     $stmt->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -116,37 +85,27 @@ if (isset($_POST['create_competitor'])) {
 <!-- navigation links -->
 <div class="container">
 
-    <a href="index.php">
-        Back to Index
-    </a>
+    <a href="index.php">Back to Index</a>
 
-    <a href="brackets.php">
-        View Brackets
-    </a>
+    <a href="brackets.php">View Brackets</a>
 
 </div>
 
 <?php
 
-// display success/error message
+// display message after submitting forms
 if ($message != "") {
-
-    echo
-        "<p class='message'>
-        <strong>$message</strong>
-        </p>";
+    echo "<p class='message'><strong>$message</strong></p>";
 }
 
 ?>
 
-<!-- tournament form -->
+<!-- create tournament form -->
 <div class="card">
 
     <h2>Create Tournament</h2>
 
-    <form
-        method="POST"
-        action="manager.php">
+    <form method="POST" action="manager.php">
 
         <input
             type="text"
@@ -157,23 +116,19 @@ if ($message != "") {
         <button
             type="submit"
             name="create_tournament">
-
             Create Tournament
-
         </button>
 
     </form>
 
 </div>
 
-<!-- competitor form -->
+<!-- create competitor form -->
 <div class="card">
 
     <h2>Create Competitor</h2>
 
-    <form
-        method="POST"
-        action="manager.php">
+    <form method="POST" action="manager.php">
 
         <input
             type="text"
@@ -196,9 +151,7 @@ if ($message != "") {
         <button
             type="submit"
             name="create_competitor">
-
             Create Competitor
-
         </button>
 
     </form>
@@ -219,27 +172,15 @@ if ($message != "") {
 
         <?php
 
-        // get tournaments
-        $result =
-            $conn->query(
-                "SELECT * FROM TOURNAMENTS"
-            );
+        // get all tournaments
+        $result = $conn->query("SELECT * FROM TOURNAMENTS");
 
         // display tournaments
         while ($row = $result->fetch_assoc()) {
 
             echo "<tr>";
-
-            echo
-                "<td>"
-                . $row['tournamentID']
-                . "</td>";
-
-            echo
-                "<td>"
-                . $row['tournamentName']
-                . "</td>";
-
+            echo "<td>" . $row['tournamentID'] . "</td>";
+            echo "<td>" . $row['tournamentName'] . "</td>";
             echo "</tr>";
         }
 
@@ -248,3 +189,45 @@ if ($message != "") {
     </table>
 
 </div>
+
+<!-- competitors table -->
+<div class="card">
+
+    <h2>Current Competitors</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Tournament ID</th>
+        </tr>
+
+        <?php
+
+        // get all competitors
+        $result = $conn->query("SELECT * FROM COMPETITORS");
+
+        // display competitors
+        while ($row = $result->fetch_assoc()) {
+
+            echo "<tr>";
+            echo "<td>" . $row['competitorID'] . "</td>";
+            echo "<td>" . $row['competitorFirstName'] . "</td>";
+            echo "<td>" . $row['competitorLastName'] . "</td>";
+            echo "<td>" . $row['tournamentID'] . "</td>";
+            echo "</tr>";
+        }
+
+        // close database connection
+        $conn->close();
+
+        ?>
+
+    </table>
+
+</div>
+
+</body>
+</html>
