@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
-    
-    <head>
-        <title>Tournament Home</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
 
-    <body>
-        
-        <!-- page title -->
-        <h1>Welcome to Tournament Manager</h1>
+<head>
+    <title>Tournament Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-        <!-- logo from CDN container -->
-        <img src="http://cdn-container/logo.png" width="120">
+<body>
 
-        <br><br>
+<!-- page title -->
+<h1>Welcome to Tournament Manager</h1>
 
-        <!-- navigation link -->
-        <a href="brackets.php">View Tournament Brackets</a>
+<!-- logo from CDN container -->
+<img src="http://cdn-container/logo.png" width="120">
 
-    </body>
+<br><br>
+
+<!-- navigation link -->
+<a href="manager.php">Manage Tournaments</a>
+
+<a href="brackets.php">View Tournament Brackets</a>
+
+</body>
 </html>
