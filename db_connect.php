@@ -1,7 +1,7 @@
 <?php
 
 // database settings 
-$servername = "db"; // change to actual container name later
+$servername = "Unnamed"; // change to actual container name later
 $username = "root";
 $password = "password";
 $dbname = "tournamentDB";

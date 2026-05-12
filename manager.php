@@ -40,6 +40,9 @@ if(isset($_POST['create_competitor'])) {
         <img src="http://cdn-container/logo.png">
     </div>
 
+    <!-- navigation link -->
+    <a href="index.php">Back to Index</a>
+    
     <!-- TOURNAMENTS SECTION -->
     <h2>
         <img src="http://cdn-container/tournament.png">

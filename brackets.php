@@ -5,120 +5,123 @@ include 'db_connect.php';
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Tournament Brackets</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <title>Tournament Brackets</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <body>
+<body>
 
-        <!-- header -->
-        <div class="top-bar">
-            <h1>Tournament Viewer</h1>
+<!-- header -->
+<div class="top-bar">
+    <h1>Tournament Viewer</h1>
 
-            <!-- logo from CDN container -->
-            <img src="http://cdn-container/logo.png">
-        </div>
+    <!-- logo from CDN container -->
+    <img src="http://cdn-container/logo.png">
+</div>
 
-        <!-- TOURNAMENTS SECTION -->
-        <h2>
-            <img src="http://cdn-container/tournament.png">
-            Tournaments
-        </h2>
+    <!-- navigation link -->
+    <a href="index.php">Back to Index</a>
 
-        <table>
+<!-- TOURNAMENTS SECTION -->
+<h2>
+    <img src="http://cdn-container/tournament.png">
+    Tournaments
+</h2>
 
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
+<table>
 
-            <?php
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+</tr>
 
-            // get tournaments
-            $result = $conn->query("SELECT * FROM TOURNAMENTS");
+<?php
 
-            // check query
-            if (!$result) {
-                die("Query failed: " . $conn->error);
-            }
+// get tournaments
+$result = $conn->query("SELECT * FROM TOURNAMENTS");
 
-            // display tournaments
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>{$row['tournamentID']}</td>";
-                echo "<td>{$row['tournamentName']}</td>";
-                echo "</tr>";
-            }
+// check query
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 
-            ?>
+// display tournaments
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    echo "<td>{$row['tournamentID']}</td>";
+    echo "<td>{$row['tournamentName']}</td>";
+    echo "</tr>";
+}
 
-        </table>
+?>
 
-        <!-- COMPETITORS SECTION -->
-        <h2>
-            <img src="http://cdn-container/player.png">
-            Competitors
-        </h2>
+</table>
 
-        <table>
+<!-- COMPETITORS SECTION -->
+<h2>
+    <img src="http://cdn-container/player.png">
+    Competitors
+</h2>
 
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Tournament ID</th>
-            </tr>
+<table>
 
-            <?php
+<tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Tournament ID</th>
+</tr>
 
-            // get competitors
-            $result = $conn->query("SELECT * FROM COMPETITORS");
+<?php
 
-            // check query
-            if (!$result) {
-                die("Query failed: " . $conn->error);
-            }
+// get competitors
+$result = $conn->query("SELECT * FROM COMPETITORS");
 
-            // display competitors
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>{$row['competitorID']}</td>";
-                echo "<td>{$row['competitorFirstName']}</td>";
-                echo "<td>{$row['competitorLastName']}</td>";
-                echo "<td>{$row['tournamentID']}</td>";
-                echo "</tr>";
-            }
+// check query
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 
-            ?>
+// display competitors
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    echo "<td>{$row['competitorID']}</td>";
+    echo "<td>{$row['competitorFirstName']}</td>";
+    echo "<td>{$row['competitorLastName']}</td>";
+    echo "<td>{$row['tournamentID']}</td>";
+    echo "</tr>";
+}
 
-        </table>
+?>
 
-        <!-- BRACKET PREVIEW -->
-        <h2>Bracket Preview</h2>
+</table>
 
-        <?php
+<!-- BRACKET PREVIEW -->
+<h2>Bracket Preview</h2>
 
-        // simple bracket display
-        $result = $conn->query("SELECT competitorFirstName, competitorLastName FROM COMPETITORS");
+<?php
 
-        if (!$result) {
-            die("Query failed: " . $conn->error);
-        }
+// simple bracket display
+$result = $conn->query("SELECT competitorFirstName, competitorLastName FROM COMPETITORS");
 
-        while ($row = $result->fetch_assoc()) {
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 
-            echo "<div class='bracket-box'>";
+while ($row = $result->fetch_assoc()) {
 
-            echo "Competitor: {$row['competitorFirstName']} {$row['competitorLastName']}";
+    echo "<div class='bracket-box'>";
 
-            echo "</div>";
-        }
+    echo "Competitor: {$row['competitorFirstName']} {$row['competitorLastName']}";
 
-        // close connection
-        $conn->close();
+    echo "</div>";
+}
 
-        ?>
+// close connection
+$conn->close();
 
-    </body>
+?>
+
+</body>
 </html>
