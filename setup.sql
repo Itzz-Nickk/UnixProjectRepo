@@ -1,33 +1,54 @@
+/* create database */
 CREATE DATABASE IF NOT EXISTS tournamentDB;
 
+/* use database */
 USE tournamentDB;
 
-/* SEQUENCE 1 */
-CREATE SEQUENCE tournamentDB.seq1
-AS INT
-START WITH 1
-INCREMENT BY 1;
-
-/* TOURNAMENTS TABLE */
+/* tournaments table */
 CREATE TABLE IF NOT EXISTS TOURNAMENTS (
-    tournamentID INT PRIMARY KEY DEFAULT NEXT VALUE FOR tournamentDB.seq1,
+
+    /* primary key */
+    tournamentID INT AUTO_INCREMENT PRIMARY KEY,
+
+    /* tournament name */
     tournamentName VARCHAR(100) NOT NULL
 );
 
-/* SEQUENCE 2 */
-CREATE SEQUENCE tournamentDB.seq2
-AS INT
-START WITH 1
-INCREMENT BY 1;
-
-/* COMPETITORS TABLE */
+/* competitors table */
 CREATE TABLE IF NOT EXISTS COMPETITORS (
-    competitorID INT PRIMARY KEY DEFAULT NEXT VALUE FOR tournamentDB.seq2,
+
+    /* primary key */
+    competitorID INT AUTO_INCREMENT PRIMARY KEY,
+
+    /* competitor first name */
     competitorFirstName VARCHAR(100) NOT NULL,
+
+    /* competitor last name */
     competitorLastName VARCHAR(100) NOT NULL,
+
+    /* relationship to tournament */
     tournamentID INT,
 
+    /* foreign key */
     FOREIGN KEY (tournamentID)
     REFERENCES TOURNAMENTS(tournamentID)
     ON DELETE CASCADE
 );
+
+/* sample tournaments */
+INSERT INTO TOURNAMENTS (tournamentName)
+VALUES
+('Spring Tournament'),
+('Summer Cup');
+
+/* sample competitors */
+INSERT INTO COMPETITORS
+(
+    competitorFirstName,
+    competitorLastName,
+    tournamentID
+)
+VALUES
+('Mike', 'Sanders', 1),
+('John', 'Smith', 1),
+('Alex', 'Brown', 2);

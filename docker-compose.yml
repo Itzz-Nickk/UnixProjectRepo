@@ -1,0 +1,59 @@
+# docker compose version
+version: '3.8'
+
+services:
+
+  # PHP Apache web container
+  web:
+
+    # build using Dockerfile
+    build: .
+
+    # container name
+    container_name: tournament_web
+
+    # local port : apache port
+    ports:
+      - "8080:80"
+
+    # sync project files
+    volumes:
+      - .:/var/www/html
+
+    # wait for database container
+    depends_on:
+      - db
+
+  # MySQL database container
+  db:
+
+    # mysql image
+    image: mysql:8.0
+
+    # container name
+    container_name: tournament_db
+
+    # restart automatically
+    restart: always
+
+    # database settings
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: tournamentDB
+
+    # mysql port
+    ports:
+      - "3306:3306"
+
+  # nginx CDN/cache container
+  cdn-container:
+
+    # nginx image
+    image: nginx:latest
+
+    # container name
+    container_name: cdn-container
+
+    # nginx port
+    ports:
+      - "8081:80"

@@ -2,24 +2,53 @@
 <html>
 
 <head>
+
+    <!-- page title -->
     <title>Tournament Home</title>
+
+    <!-- css file -->
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<!-- page title -->
+<!-- main page heading -->
 <h1>Welcome to Tournament Manager</h1>
 
-<!-- logo from CDN container -->
-<img src="http://cdn-container/logo.png" width="120">
+<!-- navigation buttons -->
+<div class="container">
 
-<br><br>
+    <!-- manager page -->
+    <a href="manager.php">
+        Manage Tournaments
+    </a>
 
-<!-- navigation link -->
-<a href="manager.php">Manage Tournaments</a>
+    <!-- brackets page -->
+    <a href="brackets.php">
+        View Brackets
+    </a>
 
-<a href="brackets.php">View Tournament Brackets</a>
+</div>
+
+<!-- container information -->
+<div class="card">
+
+    <h2>Container Status</h2>
+
+    <p>
+        Web container running
+    </p>
+
+    <p>
+        Database container connected
+    </p>
+
+    <p>
+        CDN/cache container configured
+    </p>
+
+</div>
 
 </body>
 </html>

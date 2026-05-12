@@ -1,0 +1,11 @@
+# use PHP with Apache
+FROM php:8.2-apache
+
+# install MySQL support
+RUN docker-php-ext-install mysqli
+
+# copy project files into apache folder
+COPY . /var/www/html/
+
+# expose apache port
+EXPOSE 80
