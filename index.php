@@ -14,6 +14,7 @@
 <body>
 
 <!-- main page heading -->
+    <img src="localhost:8082/imagesFolder/logo.png" alt="logo" />
 <h1>Welcome to Tournament Manager</h1>
 
 <!-- navigation buttons -->
